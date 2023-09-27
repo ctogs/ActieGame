@@ -32,8 +32,7 @@ export function GameHost() {
     timerType: "DECREMENTAL",
     endTime: 0,
     onTimeOver: async () => {
-      console.log('number of rounds after a round runs out of time: ' + numRounds.current)
-      if (numRounds.current > 5) {
+      if (numRounds.current > 10) {
         reset();
         await endGame(gameRoomsRef, roomID)
       } else {
@@ -46,28 +45,25 @@ export function GameHost() {
   });
 
   useEffect(() => {
-    console.log("in gameHost.tsx now " + new Date().getSeconds() + "." + new Date().getMilliseconds())
     start();
     const unsub = onSnapshot(doc(gameRoomsRef, roomID), (doc) => {
       const docData = doc.data();
       if (docData) {
         if (!docData.start){
           navigate(`/leaderboard/${roomID}`)
-        } else if(numRounds.current > 5){
+        } else if(numRounds.current > 10){
           (async () => {
             await endGame(gameRoomsRef, roomID)
           }) ();
         } else {
-          console.log("increasing numrounds because you watched the db")
+          reset();
+          showLeaderBoardThenStart();   
           numRounds.current += 0.5
           setActor1Name(docData.actor1Name)
           setActor2Name(docData.actor2Name)
           setActor1ImageURL(docData.actor1Image)
           setActor2ImageURL(docData.actor2Image)
-          setMovies(docData.movies)
-          reset();
-          // could wait a couple seconds before starting new round
-          showLeaderBoardThenStart();        
+          setMovies(docData.movies)     
         }
       }
     })
@@ -81,7 +77,7 @@ export function GameHost() {
     movies.forEach(async (movie) => {
       if (isCorrectGuess(formValue, movie) && user) {
         console.log("You guessed it!")
-        if (numRounds.current > 5) {
+        if (numRounds.current > 10) {
           await endGame(gameRoomsRef, roomID);
         } else {
           await updatePlayerPoints(gameRoomsRef, roomID, user, time)

@@ -31,7 +31,7 @@ export function GamePlayer() {
     endTime: 0,
     onTimeOver: async () => {
       reset();
-      start();
+      showLeaderBoardThenStart();
     }
   });
 
@@ -47,7 +47,7 @@ export function GamePlayer() {
         setActor1ImageURL(docData.actor1Image)
         setActor2ImageURL(docData.actor2Image)
         reset();
-        start();
+        showLeaderBoardThenStart();
       }
     })
 
