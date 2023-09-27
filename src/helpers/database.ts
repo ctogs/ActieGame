@@ -30,6 +30,8 @@ export async function createGameRoom(
         actor1Image: roundData.actor1Image,
         actor2Image: roundData.actor2Image,
         movies: roundData.movies,
+        roundWinner: "",
+        correctRoundGuess: "",
         players: {
           [user.email] : {
             displayName: user.displayName,
@@ -250,4 +252,27 @@ export function isCorrectGuess(guess: string, movie: string) {
     const cleanedStr2 = cleanString(movie);
   
     return cleanedStr1 === cleanedStr2;
+}
+
+/**
+ * When the host or player guesses correctly, update the corresponding room document with
+ * their displayName as the round winner and their correct guess as the correctGuess.
+ */
+export async function updateRoundWinner(
+  gameRoomsRef: CollectionReference<DocumentData, DocumentData>,
+  roomID: string| undefined,
+  displayName: string,
+  correctGuess: string
+) {
+  const gameRoomDoc = doc(gameRoomsRef, roomID);
+  
+  try {
+    await updateDoc(gameRoomDoc, {
+      roundWinner: displayName,
+      correctRoundGuess: correctGuess
+    })
+  } catch (e) {
+    console.log("can't start game")
+    console.log(e)
+  }
 }

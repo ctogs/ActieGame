@@ -2,7 +2,7 @@ import { collection, onSnapshot, doc } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
-import { endRound, isCorrectGuess, makeNewRound, updatePlayerPoints } from "../helpers/database";
+import { endRound, isCorrectGuess, makeNewRound, updatePlayerPoints, updateRoundWinner } from "../helpers/database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTimer } from "use-timer";
 import Popup from "reactjs-popup";
@@ -22,6 +22,8 @@ export function GamePlayer() {
   const gameRoomsRef = collection(db, 'gameRooms');
   const URLparams = useParams();
   const roomID = URLparams.roomID
+  const [roundWinner, setRoundWinner] = useState("");
+  const [correctRoundGeuss, setCorrectRoundGuess] = useState("");
 
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
@@ -49,6 +51,8 @@ export function GamePlayer() {
         setMovies(docData.movies)
         setActor1ImageURL(docData.actor1Image)
         setActor2ImageURL(docData.actor2Image)
+        setRoundWinner(docData.roundWinner);     
+        setCorrectRoundGuess(docData.correctRoundGuess); 
         reset();
         showLeaderBoardThenStart();
       }
@@ -61,8 +65,9 @@ export function GamePlayer() {
 
   const makeAGuess = () => {
     movies.forEach(async (movie) => {
-      if (isCorrectGuess(formValue, movie) && user) {
+      if (isCorrectGuess(formValue, movie) && user && user.displayName) {
         console.log("You guessed it!")
+        await updateRoundWinner(gameRoomsRef, roomID, user.displayName, movie);
         await updatePlayerPoints(gameRoomsRef, roomID, user, time)
         await makeNewRound(gameRoomsRef, roomID)
         setFormValue("")
@@ -93,6 +98,8 @@ export function GamePlayer() {
       <div>
         <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
           <div className="modal">
+            <h4>{roundWinner} guessed correctly!</h4>
+            <h4>They guessed: {correctRoundGeuss}</h4>
             <LeaderBoard />
           </div>
         </Popup>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { endGame, endRound, isCorrectGuess, makeNewRound, updatePlayerPoints } from "../helpers/database";
+import { endGame, endRound, isCorrectGuess, makeNewRound, updateRoundWinner, updatePlayerPoints } from "../helpers/database";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,6 +23,8 @@ export function GameHost() {
   const [movies, setMovies] = useState<string[]>([]);
   const [formValue, setFormValue] = useState("");
   const [user] = useAuthState(auth);
+  const [roundWinner, setRoundWinner] = useState("");
+  const [correctRoundGeuss, setCorrectRoundGuess] = useState("");
 
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
@@ -38,6 +40,7 @@ export function GameHost() {
       } else {
         numRounds.current += 0.5;
         reset();
+        await updateRoundWinner(gameRoomsRef, roomID, "No one", "Get it right then you'll see...");
         await makeNewRound(gameRoomsRef, roomID);
         showLeaderBoardThenStart();
       }
@@ -63,7 +66,9 @@ export function GameHost() {
           setActor2Name(docData.actor2Name)
           setActor1ImageURL(docData.actor1Image)
           setActor2ImageURL(docData.actor2Image)
-          setMovies(docData.movies)     
+          setMovies(docData.movies)    
+          setRoundWinner(docData.roundWinner);     
+          setCorrectRoundGuess(docData.correctRoundGuess); 
         }
       }
     })
@@ -75,14 +80,15 @@ export function GameHost() {
 
   const makeAGuess = () => {
     movies.forEach(async (movie) => {
-      if (isCorrectGuess(formValue, movie) && user) {
+      if (isCorrectGuess(formValue, movie) && user && user.displayName) {
         console.log("You guessed it!")
         if (numRounds.current > 10) {
           await endGame(gameRoomsRef, roomID);
         } else {
+          await updateRoundWinner(gameRoomsRef, roomID, user.displayName, movie);
           await updatePlayerPoints(gameRoomsRef, roomID, user, time)
           await makeNewRound(gameRoomsRef, roomID)
-          setFormValue("")        
+          setFormValue("")
         }
       } else {
         console.log("You're an idiot. Try again.")
@@ -112,6 +118,8 @@ export function GameHost() {
       <div>
         <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
           <div className="modal">
+            <h4>{roundWinner} guessed correctly!</h4>
+            <h4>They guessed: {correctRoundGeuss}</h4>
             <LeaderBoard />
           </div>
         </Popup>
