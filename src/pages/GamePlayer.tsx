@@ -2,7 +2,7 @@ import { collection, onSnapshot, doc } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
-import { endRound, makeNewRound, updatePlayerPoints } from "../helpers/database";
+import { endRound, isCorrectGuess, makeNewRound, updatePlayerPoints } from "../helpers/database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTimer } from "use-timer";
 
@@ -53,7 +53,7 @@ export function GamePlayer() {
 
   const makeAGuess = () => {
     movies.forEach(async (movie) => {
-      if (formValue.toLowerCase() == movie.toLowerCase() && user) {
+      if (isCorrectGuess(formValue, movie) && user) {
         console.log("You guessed it!")
         await updatePlayerPoints(gameRoomsRef, roomID, user, time)
         await makeNewRound(gameRoomsRef, roomID)

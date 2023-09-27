@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { endGame, endRound, makeNewRound, updatePlayerPoints } from "../helpers/database";
+import { endGame, endRound, isCorrectGuess, makeNewRound, updatePlayerPoints } from "../helpers/database";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useNavigate, useParams } from "react-router-dom";
@@ -76,7 +76,7 @@ export function GameHost() {
 
   const makeAGuess = () => {
     movies.forEach(async (movie) => {
-      if (formValue.toLowerCase() == movie.toLowerCase() && user) {
+      if (isCorrectGuess(formValue, movie) && user) {
         console.log("You guessed it!")
         if (numRounds.current > 5) {
           await endGame(gameRoomsRef, roomID);

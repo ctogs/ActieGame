@@ -79,7 +79,9 @@ export async function addUser(
   }
 }
 
-
+/**
+ * Add user to a room they're in. Adds that user the players list in the corresponding room doc
+ */
 export async function addUserToRoom(
   gameRoomsRef: CollectionReference<DocumentData, DocumentData>,
   user: User,
@@ -114,6 +116,9 @@ export async function addUserToRoom(
   }
 }
 
+/**
+ * When the host hits "start game" in hostwaitroom, set start to true in the corresponding room doc
+ */
 export async function setStartGameToTrue(
   gameRoomsRef: CollectionReference<DocumentData, DocumentData>,
   roomID: string| undefined
@@ -129,6 +134,11 @@ export async function setStartGameToTrue(
   }
 }
 
+
+/**
+ * When a player or host guesses a movie correctly, make a new round with new data.
+ * Alter the corresponding room doc with the new round data.
+ */
 export async function makeNewRound(
   gameRoomsRef: CollectionReference<DocumentData, DocumentData>,
   roomID: string| undefined
@@ -150,6 +160,10 @@ export async function makeNewRound(
   }
 }
 
+/**
+ * When a user or host guesses correctly, the host must end the round, setting roundEnd to true
+ * in the corresponding room doc
+ */
 export async function endRound(
   gameRoomsRef: CollectionReference<DocumentData, DocumentData>,
   roomID: string| undefined
@@ -165,6 +179,9 @@ export async function endRound(
   }
 }
 
+/**
+ * When the number of rounds has passed the threshold, the host will end the game
+ */
 export async function endGame(
   gameRoomsRef: CollectionReference<DocumentData, DocumentData>,
   roomID: string| undefined
@@ -180,6 +197,10 @@ export async function endGame(
   }
 }
 
+/**
+ * When a player or the host guesses correctly, update the players list in the corresponding room doc with
+ * the appropriate number of points they earned. It's the time remaining in the round * 10
+ */
 export async function updatePlayerPoints(
   gameRoomsRef: CollectionReference<DocumentData, DocumentData>,
   roomID: string| undefined,
@@ -207,4 +228,26 @@ export async function updatePlayerPoints(
   } catch (e) {
     console.log(e)
   }
+}
+
+/**
+ * Remove all special characters from the guess and the movie to get a better comparison.
+ * MISSION impossible ghosT PROTOcol should be equivalent to Mission Impossible: Ghost Protocol
+ */
+export function isCorrectGuess(guess: string, movie: string) {
+    // Remove special characters (keep digits)
+    const removeSpecialChars = (input: string): string => {
+      return input.replace(/[^a-zA-Z0-9]/g, '');
+    };
+  
+    // Remove spaces and special characters, convert to lowercase
+    const cleanString = (input: string): string => {
+      return removeSpecialChars(input).toLowerCase();
+    };
+  
+    // Clean and compare the strings
+    const cleanedStr1 = cleanString(guess);
+    const cleanedStr2 = cleanString(movie);
+  
+    return cleanedStr1 === cleanedStr2;
 }
