@@ -71,3 +71,63 @@ input {
 input:focus {
   border-color: #657BFF; /* Change border color when focused */
 }
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 2rem; /* Increase padding as needed */
+  color: white; /* Text color for the header */
+  z-index: 999; /* Ensure it's above other content */
+}
+
+/* Style for the "Actie" text on the top left */
+.header-left {
+  margin-left: 4rem; /* Adjust margin as needed */
+}
+
+/* Style for the SignOut component on the top right */
+.header-right {
+  margin-right: 4rem; /* Adjust margin as needed */
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%; /* Take up 60% of the screen width */
+  height: 60%; /* Take up 60% of the screen height */
+  background-color: rgb(45, 47, 50); /* Make the modal background white or another color */
+  border: 1px solid gray; /* Add a border */
+  border-radius: 10px; /* Optional: Add some rounded corners */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Optional: Add a shadow for better visual effect */
+  margin: 0 auto; /* Center it horizontally */
+  padding: 2rem; /* Add some padding */
+  position: fixed; /* Fixed positioning */
+  top: 50%; /* Start from the middle of the viewport */
+  left: 50%; /* Start from the middle of the viewport */
+  transform: translate(-50%, -50%); /* Center the modal */
+  z-index: 1000; /* Ensure it's on top */
+  font-size: 12px;
+}
+
+.modal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+  flex: 1; /* Make it flexible */
+}
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+  flex: 8; /* Allow it to grow */
+  overflow-y: auto; /* Add a scrollbar if the content overflows */
+}
+

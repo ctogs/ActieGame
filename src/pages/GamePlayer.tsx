@@ -5,6 +5,8 @@ import { auth, db } from "../firebase";
 import { endRound, isCorrectGuess, makeNewRound, updatePlayerPoints } from "../helpers/database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTimer } from "use-timer";
+import Popup from "reactjs-popup";
+import { LeaderBoard } from "./LeaderBoard";
 
 export function GamePlayer() {
   const navigate = useNavigate();
@@ -19,6 +21,9 @@ export function GamePlayer() {
   const gameRoomsRef = collection(db, 'gameRooms');
   const URLparams = useParams();
   const roomID = URLparams.roomID
+
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
 
   const { time, start, pause, reset } = useTimer({
     initialTime: 15,
@@ -64,6 +69,15 @@ export function GamePlayer() {
       }
     })
   }
+
+  const showLeaderBoardThenStart = () => {
+    setOpen(true)
+    setTimeout(() => {
+      setOpen(false);
+      start();
+    }, 7000);
+  }
+
   return (
     <>
       <h1>GamePlayer</h1>
@@ -71,6 +85,16 @@ export function GamePlayer() {
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
       <button onClick={reset}>Reset</button> <br />
+
+      <button onClick={showLeaderBoardThenStart}>Show leaderboard</button>
+      <div>
+        <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
+          <div className="modal">
+            <LeaderBoard />
+          </div>
+        </Popup>
+      </div> <br />
+
       <div className="actor-container">
         <div className="actor">
           <img src={actor1ImageURL} alt="actor1img" />

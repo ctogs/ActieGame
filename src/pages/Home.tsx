@@ -5,11 +5,14 @@ import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth'
 import { collection, getDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { addUser, createGameRoom } from "../helpers/database";
+import { Popup } from 'reactjs-popup'
+
+import { MouseEventHandler, ReactNode, useState } from "react";
 
 
 export function Home() {
-  const navigate = useNavigate();
-  const [user] = useAuthState(auth);
+  const navigate = useNavigate()
+  const [user] = useAuthState(auth)
   const usersRef = collection(db, 'users')
   const gameRoomsRef = collection(db, 'gameRooms')
   
@@ -33,10 +36,15 @@ export function Home() {
 
   return (
     <>
-      <SignOut />
+      <div className="header">
+        <div className="header-left">Actie</div>
+        <div className="header-right">
+          <SignOut />
+        </div>
+      </div>
       <h1>Home</h1>
       {user ? 
-        <div>
+        <div>        
           <h3>{user.displayName}</h3>
           <button onClick={createGame}>create game</button>
           <button onClick={joinGame}>join game</button>

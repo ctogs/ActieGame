@@ -21,6 +21,7 @@ export function LeaderBoard() {
 
   return (
     <>
+      <h2>LeaderBoard</h2>
       {Object.entries(players).sort(([,a], [,b]) => 
         b.points - a.points
       ).

@@ -5,6 +5,9 @@ import { auth, db } from "../firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTimer } from 'use-timer'
 import { useAuthState } from "react-firebase-hooks/auth";
+import Popup from "reactjs-popup";
+import { LeaderBoard } from "./LeaderBoard";
+
 
 export function GameHost() {
   const navigate = useNavigate();
@@ -21,6 +24,9 @@ export function GameHost() {
   const [formValue, setFormValue] = useState("");
   const [user] = useAuthState(auth);
 
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
+
   const { time, start, pause, reset } = useTimer({
     initialTime: 15,
     timerType: "DECREMENTAL",
@@ -28,16 +34,13 @@ export function GameHost() {
     onTimeOver: async () => {
       console.log('number of rounds after a round runs out of time: ' + numRounds.current)
       if (numRounds.current > 5) {
-        console.log("number of rounds is above 5")
         reset();
         await endGame(gameRoomsRef, roomID)
       } else {
-        console.log("increasing numrounds in onTimeOver")
         numRounds.current += 0.5;
-        await makeNewRound(gameRoomsRef, roomID)
         reset();
-        start();
-        console.log("the end of the ontimeover function")
+        await makeNewRound(gameRoomsRef, roomID);
+        showLeaderBoardThenStart();
       }
     }
   });
@@ -64,7 +67,7 @@ export function GameHost() {
           setMovies(docData.movies)
           reset();
           // could wait a couple seconds before starting new round
-          start();          
+          showLeaderBoardThenStart();        
         }
       }
     })
@@ -91,7 +94,15 @@ export function GameHost() {
       }
     })
   }
-  
+
+  const showLeaderBoardThenStart = () => {
+    setOpen(true)
+    setTimeout(() => {
+      setOpen(false);
+      start();
+    }, 7000);
+  }
+
   return (
     <>
       <h1>GameHost</h1>
@@ -100,6 +111,16 @@ export function GameHost() {
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
       <button onClick={reset}>Reset</button> <br />
+
+      <button onClick={showLeaderBoardThenStart}>Show leaderboard</button>
+      <div>
+        <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
+          <div className="modal">
+            <LeaderBoard />
+          </div>
+        </Popup>
+      </div> <br />
+
       <div className="actor-container">
         <div className="actor">
           <img src={actor1ImageURL} alt="actor1img" />
@@ -110,7 +131,9 @@ export function GameHost() {
           <h3>{actor2Name}</h3> 
         </div>
       </div>
+      <div>
 
+    </div>
       {time} seconds remaining <br />
       <form onSubmit={(e) => e.preventDefault()}>
         <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="What's your fucking guess?" /><br></br>
