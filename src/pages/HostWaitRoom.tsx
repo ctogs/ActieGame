@@ -11,6 +11,20 @@ export function HostWaitRoom() {
   const URLparams = useParams();
   const gameRoomsRef = collection(db, 'gameRooms')
   const roomID = URLparams.roomID
+  const [players, setPlayers] = useState<Record<string, Player>>({});
+
+  useEffect(() => {
+    const unsub = onSnapshot(doc(gameRoomsRef, roomID), (doc) => {
+      const docData = doc.data();
+      if (docData) {
+        setPlayers(docData.players)
+      }
+    })
+
+    return () => {
+      unsub();
+    }
+  }, [])
 
   const startGame = async() => {
     if (roomID != undefined) console.log("no room")
@@ -19,7 +33,14 @@ export function HostWaitRoom() {
   }
   return (
     <> 
-      <WaitingRoom />
+      <h1>Host Waitroom</h1>
+      {Object.entries(players).map(([key, value]) => 
+         (
+          <div key={key}>
+            {value.displayName}
+          </div>
+        )
+      )}      
       <button onClick={startGame}>start game</button>
     </>
   )

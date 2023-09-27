@@ -31,6 +31,7 @@ export function GamePlayer() {
   });
 
   useEffect(() => {
+    console.log("in gamePlayer.tsx now " + new Date().getSeconds() + "." + new Date().getMilliseconds())
     const unsub = onSnapshot(doc(gameRoomsRef, roomID), (doc) => {
       const docData = doc.data();
       if (docData) {
@@ -42,8 +43,13 @@ export function GamePlayer() {
         setActor2ImageURL(docData.actor2Image)
         reset();
         start();
+        console.log("onsnapshot stuff running in gameplayer")
       }
     })
+
+    return () => {
+      unsub();
+    }
   }, [])
 
   const makeAGuess = () => {

@@ -21,6 +21,10 @@ export function WaitingRoom() {
         if(docData.start == true) navigate(`/player/${roomID}`)
       }
     })
+
+    return () => {
+      unsub();
+    }
   }, [])
 
   return (

@@ -45,6 +45,7 @@ export function GameHost() {
   });
 
   useEffect(() => {
+    console.log("in gameHost.tsx now " + new Date().getSeconds() + "." + new Date().getMilliseconds())
     start();
     const unsub = onSnapshot(doc(gameRoomsRef, roomID), (doc) => {
       const docData = doc.data();
@@ -64,9 +65,12 @@ export function GameHost() {
           start();          
         }
         console.log("the onSpapshot bullshit is running in GameHost")
-
       }
     })
+
+    return () => {
+      unsub();
+    };
   }, [])
 
   const makeAGuess = () => {
