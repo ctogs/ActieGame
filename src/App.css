@@ -56,3 +56,18 @@
   text-align: center; /* Centers image and name */
   margin: 100px;
 }
+
+input {
+  border: 1px solid #3A4660; /* Dark indigo border */
+  background-color: #222; /* Grayish black background */
+  color: white; /* Text color */
+  padding: 16px 20px; /* Increased padding for a larger input */
+  font-size: 18px; /* Larger font size */
+  border-radius: 8px; /* Rounded corners */
+  outline: none; /* Remove the default focus outline */
+}
+
+/* Style for the input element when focused */
+input:focus {
+  border-color: #657BFF; /* Change border color when focused */
+}

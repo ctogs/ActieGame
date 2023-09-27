@@ -95,7 +95,6 @@ export function GameHost() {
   return (
     <>
       <h1>GameHost</h1>
-      {/* <LeaderBoard /> */}
       <h3>{user?.displayName}</h3>
       <h2>number of rounds: {numRounds.current}</h2>
       <button onClick={start}>Start</button>
