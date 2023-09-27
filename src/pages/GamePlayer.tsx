@@ -10,6 +10,7 @@ import { LeaderBoard } from "./LeaderBoard";
 
 export function GamePlayer() {
   const navigate = useNavigate();
+  const numRounds = useRef(0);
   const [actor1Name, setActor1Name] = useState("");
   const [actor2Name, setActor2Name] = useState("");
   const [actor1ImageURL, setActor1ImageURL] = useState("");
@@ -30,6 +31,7 @@ export function GamePlayer() {
     timerType: "DECREMENTAL",
     endTime: 0,
     onTimeOver: async () => {
+      numRounds.current += 0.5;
       reset();
       showLeaderBoardThenStart();
     }
@@ -41,6 +43,7 @@ export function GamePlayer() {
       const docData = doc.data();
       if (docData) {
         if (!docData.start) navigate(`/leaderboard/${roomID}`)
+        numRounds.current += 0.5;
         setActor1Name(docData.actor1Name)
         setActor2Name(docData.actor2Name)
         setMovies(docData.movies)
@@ -82,10 +85,10 @@ export function GamePlayer() {
     <>
       <h1>GamePlayer</h1>
       <h3>{user?.displayName}</h3>
+      <h2>Round: {numRounds.current}</h2>
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
       <button onClick={reset}>Reset</button> <br />
-
       <button onClick={showLeaderBoardThenStart}>Show leaderboard</button>
       <div>
         <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>

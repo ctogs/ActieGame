@@ -103,7 +103,7 @@ export function GameHost() {
     <>
       <h1>GameHost</h1>
       <h3>{user?.displayName}</h3>
-      <h2>number of rounds: {numRounds.current}</h2>
+      <h2>Round: {numRounds.current}</h2>
       <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
       <button onClick={reset}>Reset</button> <br />
