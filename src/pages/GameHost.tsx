@@ -32,15 +32,13 @@ export function GameHost() {
         reset();
         await endGame(gameRoomsRef, roomID)
       } else {
-        console.log("increasing numrounds")
-        numRounds.current++;
+        console.log("increasing numrounds in onTimeOver")
+        numRounds.current += 0.5;
         await makeNewRound(gameRoomsRef, roomID)
         reset();
         start();
         console.log("the end of the ontimeover function")
       }
-      // console.log("timer in host has fucking ended bitch")
-
     }
   });
 
@@ -52,9 +50,13 @@ export function GameHost() {
       if (docData) {
         if (!docData.start){
           navigate(`/leaderboard/${roomID}`)
+        } else if(numRounds.current > 5){
+          (async () => {
+            await endGame(gameRoomsRef, roomID)
+          }) ();
         } else {
-          console.log("increasing numrounds")
-          numRounds.current += 0.25;
+          console.log("increasing numrounds because you watched the db")
+          numRounds.current += 0.5
           setActor1Name(docData.actor1Name)
           setActor2Name(docData.actor2Name)
           setActor1ImageURL(docData.actor1Image)
@@ -64,7 +66,6 @@ export function GameHost() {
           // could wait a couple seconds before starting new round
           start();          
         }
-        console.log("the onSpapshot bullshit is running in GameHost")
       }
     })
 
@@ -77,7 +78,7 @@ export function GameHost() {
     movies.forEach(async (movie) => {
       if (formValue.toLowerCase() == movie.toLowerCase() && user) {
         console.log("You guessed it!")
-        if (numRounds.current > 5){
+        if (numRounds.current > 5) {
           await endGame(gameRoomsRef, roomID);
         } else {
           await updatePlayerPoints(gameRoomsRef, roomID, user, time)

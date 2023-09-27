@@ -24,10 +24,10 @@ export function LeaderBoard() {
       {Object.entries(players).sort(([,a], [,b]) => 
         b.points - a.points
       ).
-      map(([key, value]) => 
+      map(([key, value], index) => 
          (
-          <div>
-            {value.displayName} - {value.points}
+          <div key={key}>
+            {index + 1}: {value.displayName} - {value.points}
           </div>
         )
       )}

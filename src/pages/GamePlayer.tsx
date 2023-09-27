@@ -43,7 +43,6 @@ export function GamePlayer() {
         setActor2ImageURL(docData.actor2Image)
         reset();
         start();
-        console.log("onsnapshot stuff running in gameplayer")
       }
     })
 
