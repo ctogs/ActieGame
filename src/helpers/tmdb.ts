@@ -6,20 +6,6 @@ const EDIT_URL = "person/3/movie_credits&"
 const API_URL = BASE_URL + EDIT_URL + API_KEY;
 const IMAGE_URL = "https://image.tmdb.org/t/p/original"
 
-// const res = await fetch(API_URL);
-// const json = await res.json();
-
-// console.log(json);
-
-
-// const options = {
-//   method: 'GET',
-//   headers: {
-//     accept: 'application/json',
-//     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZTBkOGI2MzljZWIzMjM1YzIxZDU5MzQ0NjZiYjYyZSIsInN1YiI6IjY0YTliNDhkNmEzNDQ4MDE0ZDMxODc1ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ica4y5Cm8j3D_skxiTkZVhEjvNWw9mOk__qClveCvfc'
-//   }
-// };
-
 function movieOnly(item: any) {
   if (item.known_for_department !== "Acting") return false
 
@@ -33,7 +19,7 @@ function movieOnly(item: any) {
 
 export async function generateRound() {
   const page = Math.floor(Math.random() * 13) + 1
-  console.log("page: " + page);
+
   const ares = await fetch("https://api.themoviedb.org/3/person/popular?language=en-US&page=" + page + "&" + API_KEY);
 
   const ajson = await ares.json();
@@ -60,16 +46,13 @@ export async function generateRound() {
   }
 
   const actor1ImageURL = actor1ImageListArray[0]
-  // console.log(actor1ImageListArray)
-  console.log("Movie ID: " + movieID);
-  console.log("Actor 1: " + dData[randNum].name + " " + dData[randNum].popularity);
 
   const credRes = await fetch('https://api.themoviedb.org/3/movie/'+ movieID + '/credits?language=en-US&' + API_KEY)
   const credJson = await credRes.json()
   const cast = credJson.cast.slice(0, 4).filter((item: any) => item.name !== firstActorName)
 
   const actor2 = cast[Math.floor(Math.random() * 3)];
-  console.log("Actor 2: " + actor2.name + " " + actor2.popularity);
+ 
   // Get other actor Image
   const actor2Id = actor2.id
   const actor2Image = await fetch("https://api.themoviedb.org/3/person/" + actor2Id + "/images?language=en-US&" + API_KEY)
@@ -115,8 +98,6 @@ export async function generateRound() {
       moviesShared.push(element)
     }
   }
-
-  console.log(moviesShared)
 
   const gameRound: Round = {
     actor1Name: dData[randNum].name,

@@ -81,7 +81,6 @@ export function GameHost() {
   const makeAGuess = () => {
     movies.forEach(async (movie) => {
       if (isCorrectGuess(formValue, movie) && user && user.displayName) {
-        console.log("You guessed it!")
         if (numRounds.current > 10) {
           await endGame(gameRoomsRef, roomID);
         } else {
@@ -91,7 +90,6 @@ export function GameHost() {
           setFormValue("")
         }
       } else {
-        console.log("You're an idiot. Try again.")
         setFormValue("")
       }
     })

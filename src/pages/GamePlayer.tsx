@@ -40,7 +40,6 @@ export function GamePlayer() {
   });
 
   useEffect(() => {
-    console.log("in gamePlayer.tsx now " + new Date().getSeconds() + "." + new Date().getMilliseconds())
     const unsub = onSnapshot(doc(gameRoomsRef, roomID), (doc) => {
       const docData = doc.data();
       if (docData) {
@@ -66,13 +65,11 @@ export function GamePlayer() {
   const makeAGuess = () => {
     movies.forEach(async (movie) => {
       if (isCorrectGuess(formValue, movie) && user && user.displayName) {
-        console.log("You guessed it!")
         await updateRoundWinner(gameRoomsRef, roomID, user.displayName, movie);
         await updatePlayerPoints(gameRoomsRef, roomID, user, time)
         await makeNewRound(gameRoomsRef, roomID)
         setFormValue("")
       } else {
-        console.log("You're an idiot. Try again.")
         setFormValue("")
       }
     })

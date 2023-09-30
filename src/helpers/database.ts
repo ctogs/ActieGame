@@ -66,7 +66,7 @@ export async function addUser(
   if (!user.email) return "No user email"
 
   const userdbID = xxhashAPI.h64ToString(user.email);
-  console.log(userdbID)
+
   const userDoc = doc(usersRef, userdbID);
   try {
     await setDoc(userDoc, {
@@ -244,7 +244,8 @@ export function isCorrectGuess(guess: string, movie: string) {
   
     // Remove spaces and special characters, convert to lowercase
     const cleanString = (input: string): string => {
-      return removeSpecialChars(input).toLowerCase();
+      let cleanedString = removeSpecialChars(input).toLowerCase();
+      return cleanedString.replace("the", "")
     };
   
     // Clean and compare the strings
