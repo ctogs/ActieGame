@@ -107,14 +107,9 @@ export function GameHost() {
 
   return (
     <>
-      <h1>GameHost</h1>
+      <h1>Host</h1>
       <h3>{user?.displayName}</h3>
       <h2>Round: {numRounds.current}</h2>
-      <button onClick={start}>Start</button>
-      <button onClick={pause}>Pause</button>
-      <button onClick={reset}>Reset</button> <br />
-
-      <button onClick={showLeaderBoardThenStart}>Show leaderboard</button>
       <div>
         <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
           <div className="modal">
