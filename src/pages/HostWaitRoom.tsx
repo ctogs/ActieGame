@@ -32,14 +32,16 @@ export function HostWaitRoom() {
   }
   return (
     <> 
-      <h1>Host Waitroom</h1>
+      <h1>Waiting Room</h1>
       {Object.entries(players).map(([key, value]) => 
          (
-          <div key={key}>
-            {value.displayName}
+          <div key={key} className="actie-header">
+            <div className="player-name">
+              {value.displayName}
+            </div>
           </div>
         )
-      )}      
+      )} <br />     
       <button onClick={startGame}>start game</button>
     </>
   )

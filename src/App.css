@@ -135,3 +135,12 @@ input:focus {
 button {
   margin: 10px;
 }
+
+.actie-header {
+  font-weight: bold;
+  color: #657BFF;
+}
+
+.player-name {
+  padding: 5px;
+}

@@ -11,7 +11,7 @@ import { LeaderBoard } from "./LeaderBoard";
 
 export function GameHost() {
   const navigate = useNavigate();
-  const numRounds = useRef(0);
+  const numRounds = useRef(-0.5);
   const gameRoomsRef = collection(db, 'gameRooms');
   const URLparams = useParams();
   const roomID = URLparams.roomID
@@ -128,19 +128,21 @@ export function GameHost() {
       <div className="actor-container">
         <div className="actor">
           <img src={actor1ImageURL} alt="actor1img" />
-          <h3>{actor1Name}</h3> 
+          <div className="actie-header">
+            <h3>{actor1Name}</h3> 
+          </div>
         </div>
         <div className="actor">
           <img src={actor2ImageURL} alt="actor2img" /> 
-          <h3>{actor2Name}</h3> 
+          <div className="actie-header">
+            <h3>{actor2Name}</h3> 
+          </div>
         </div>
       </div>
-      <div>
 
-    </div>
       {time} seconds remaining <br />
       <form onSubmit={(e) => e.preventDefault()}>
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="What's your fucking guess?" /><br></br>
+        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="What's your guess?" /><br></br>
         <button onClick={makeAGuess}>Guess</button>
       </form>
     </>

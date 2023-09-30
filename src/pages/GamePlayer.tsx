@@ -10,7 +10,7 @@ import { LeaderBoard } from "./LeaderBoard";
 
 export function GamePlayer() {
   const navigate = useNavigate();
-  const numRounds = useRef(0);
+  const numRounds = useRef(-0.5);
   const [actor1Name, setActor1Name] = useState("");
   const [actor2Name, setActor2Name] = useState("");
   const [actor1ImageURL, setActor1ImageURL] = useState("");
@@ -108,17 +108,21 @@ export function GamePlayer() {
       <div className="actor-container">
         <div className="actor">
           <img src={actor1ImageURL} alt="actor1img" />
-          <h3>{actor1Name}</h3> 
+          <div className="actie-header">
+            <h3>{actor1Name}</h3> 
+          </div>
         </div>
         <div className="actor">
           <img src={actor2ImageURL} alt="actor2img" /> 
-          <h3>{actor2Name}</h3> 
+          <div className="actie-header">
+            <h3>{actor2Name}</h3> 
+          </div>
         </div>
       </div>
       
       {time} seconds remaining <br />
       <form onSubmit={(e) => e.preventDefault()}>
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="What's your fucking guess?" /><br></br>
+        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="What's your guess?" /><br></br>
         <button onClick={makeAGuess}>Guess</button>
       </form>
     </>

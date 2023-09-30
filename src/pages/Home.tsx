@@ -38,11 +38,10 @@ export function Home() {
       </div>
       <div className="actie-header">
         <h1>Actie!</h1>
+        <h2>A Movie Guessing Game</h2>
       </div>
-      <h2>A Movie Guessing Game</h2>
       {user ? 
-        <div>
-          <h4>Your display name: {user.displayName}</h4>        
+        <div>    
           <button onClick={createGame}>create game</button>
           <button onClick={joinGame}>join a game</button>
         </div>

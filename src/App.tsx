@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <div className="header">
-        <div className="header-left">
+        <div className="actie-header">
           <a href='/'>Actie</a>
         </div>
       </div>    
