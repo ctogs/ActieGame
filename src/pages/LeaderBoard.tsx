@@ -25,17 +25,19 @@ export function LeaderBoard() {
 
   return (
     <>
-      <h2>LeaderBoard</h2>
-      {Object.entries(players).sort(([,a], [,b]) => 
-        b.points - a.points
-      ).
-      map(([key, value], index) => 
-         (
-          <div key={key}>
-            {index + 1}: {value.displayName} - {value.points}
-          </div>
-        )
-      )}
+      <h1>LeaderBoard</h1>
+      <div className="actie-header">
+        {Object.entries(players).sort(([,a], [,b]) => 
+          b.points - a.points
+        ).
+        map(([key, value], index) => 
+          (
+            <div key={key}>
+              <h2>{index + 1}: {value.displayName} - {value.points}</h2>
+            </div>
+          )
+        )}
+      </div>
     </>
   )
 }

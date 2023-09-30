@@ -99,10 +99,9 @@ input:focus {
 .modal {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  width: 60%; /* Take up 60% of the screen width */
-  height: 60%; /* Take up 60% of the screen height */
+  width: 80%; /* Take up 60% of the screen width */
+  height: 80%; /* Take up 60% of the screen height */
   background-color: rgb(45, 47, 50); /* Make the modal background white or another color */
   border: 1px solid gray; /* Add a border */
   border-radius: 10px; /* Optional: Add some rounded corners */

@@ -10,7 +10,7 @@ import { LeaderBoard } from "./LeaderBoard";
 
 export function GamePlayer() {
   const navigate = useNavigate();
-  const numRounds = useRef(-0.5);
+  const numRounds = useRef(0);
   const [actor1Name, setActor1Name] = useState("");
   const [actor2Name, setActor2Name] = useState("");
   const [actor1ImageURL, setActor1ImageURL] = useState("");
@@ -98,8 +98,8 @@ export function GamePlayer() {
       <div>
         <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
           <div className="modal">
-            <h4>{roundWinner} guessed correctly!</h4>
-            <h4>They guessed: {correctRoundGeuss}</h4>
+            <h2>{roundWinner} guessed correctly!</h2>
+            <h2>They guessed: {correctRoundGeuss}</h2>
             <LeaderBoard />
           </div>
         </Popup>

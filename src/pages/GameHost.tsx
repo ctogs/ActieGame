@@ -11,7 +11,7 @@ import { LeaderBoard } from "./LeaderBoard";
 
 export function GameHost() {
   const navigate = useNavigate();
-  const numRounds = useRef(-0.5);
+  const numRounds = useRef(0);
   const gameRoomsRef = collection(db, 'gameRooms');
   const URLparams = useParams();
   const roomID = URLparams.roomID
@@ -118,9 +118,9 @@ export function GameHost() {
       <div>
         <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
           <div className="modal">
-            <h4>{roundWinner} guessed correctly!</h4>
-            <h4>They guessed: {correctRoundGeuss}</h4>
-            <LeaderBoard />
+              <h2>{roundWinner} guessed correctly!</h2>
+              <h2>They guessed: {correctRoundGeuss}</h2>
+              <LeaderBoard />              
           </div>
         </Popup>
       </div> <br />
