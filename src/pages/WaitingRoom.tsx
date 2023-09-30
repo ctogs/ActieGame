@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Player } from "../helpers/types"
 import { collection, doc, onSnapshot } from "firebase/firestore"
 import { db } from "../firebase";

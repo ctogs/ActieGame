@@ -13,7 +13,11 @@ import './App.css'
 function App() {
   return (
     <>
-      <a href="/">Go Home</a>
+      <div className="header">
+        <div className="header-left">
+          <a href='/'>Actie</a>
+        </div>
+      </div>    
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

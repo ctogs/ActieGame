@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Player } from "../helpers/types"
 import { collection, doc, onSnapshot } from "firebase/firestore"
 import { db } from "../firebase";
 import { useNavigate, useParams } from "react-router-dom";
-import { WaitingRoom } from "./WaitingRoom";
 import { setStartGameToTrue } from "../helpers/database";
 
 export function HostWaitRoom() {

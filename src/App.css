@@ -88,6 +88,7 @@ input:focus {
 /* Style for the "Actie" text on the top left */
 .header-left {
   margin-left: 4rem; /* Adjust margin as needed */
+  font-size: xx-large;
 }
 
 /* Style for the SignOut component on the top right */
@@ -131,3 +132,6 @@ input:focus {
   overflow-y: auto; /* Add a scrollbar if the content overflows */
 }
 
+button {
+  margin: 10px;
+}

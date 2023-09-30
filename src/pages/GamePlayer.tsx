@@ -2,7 +2,7 @@ import { collection, onSnapshot, doc } from "firebase/firestore";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
-import { endRound, isCorrectGuess, makeNewRound, updatePlayerPoints, updateRoundWinner } from "../helpers/database";
+import { isCorrectGuess, makeNewRound, updatePlayerPoints, updateRoundWinner } from "../helpers/database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useTimer } from "use-timer";
 import Popup from "reactjs-popup";

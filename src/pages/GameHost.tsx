@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { endGame, endRound, isCorrectGuess, makeNewRound, updateRoundWinner, updatePlayerPoints } from "../helpers/database";
+import { endGame, isCorrectGuess, makeNewRound, updateRoundWinner, updatePlayerPoints } from "../helpers/database";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useNavigate, useParams } from "react-router-dom";

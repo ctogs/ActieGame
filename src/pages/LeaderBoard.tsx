@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Player } from "../helpers/types"
 import { collection, doc, onSnapshot } from "firebase/firestore"
 import { db } from "../firebase";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export function LeaderBoard() {
   const [players, setPlayers] = useState<Record<string, Player>>({});
@@ -17,6 +17,10 @@ export function LeaderBoard() {
         setPlayers(docData.players)
       }
     })
+
+    return () => {
+      unsub();
+    }
   }, [])
 
   return (

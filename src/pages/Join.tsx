@@ -18,7 +18,7 @@ export function Join() {
     <>
       <h1>Join</h1>
       <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Room ID" /><br></br>
-      <button onClick={goToWaitRoom}>join the fucking game</button>
+      <button onClick={goToWaitRoom}>join the game!</button>
     </>
   )
 }

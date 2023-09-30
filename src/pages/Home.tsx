@@ -2,12 +2,9 @@ import { useNavigate } from "react-router-dom"
 import { auth } from "../firebase";
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { GoogleAuthProvider, signInWithPopup } from '@firebase/auth'
-import { collection, getDoc, doc, setDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { addUser, createGameRoom } from "../helpers/database";
-import { Popup } from 'reactjs-popup'
-
-import { MouseEventHandler, ReactNode, useState } from "react";
 
 
 export function Home() {
@@ -36,19 +33,20 @@ export function Home() {
 
   return (
     <>
-      <div className="header">
-        <div className="header-left">Actie</div>
-        <div className="header-right">
-          <SignOut />
-        </div>
+      <div>
+        <SignOut />
       </div>
-      <h1>Home</h1>
+      <div className="actie-header">
+        <h1>Actie!</h1>
+      </div>
+      <h2>A Movie Guessing Game</h2>
       {user ? 
-        <div>        
-          <h3>{user.displayName}</h3>
+        <div>
+          <h4>Your display name: {user.displayName}</h4>        
           <button onClick={createGame}>create game</button>
-          <button onClick={joinGame}>join game</button>
-        </div> :
+          <button onClick={joinGame}>join a game</button>
+        </div>
+         :
         <SignIn />
       }
     </>
