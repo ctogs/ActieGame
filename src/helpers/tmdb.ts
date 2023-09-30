@@ -1,9 +1,6 @@
 import { Round } from "./types";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY
-const BASE_URL = "http://api.themoviedb.org/3/"
-const EDIT_URL = "person/3/movie_credits&"
-const API_URL = BASE_URL + EDIT_URL + API_KEY;
 const IMAGE_URL = "https://image.tmdb.org/t/p/original"
 
 function movieOnly(item: any) {

@@ -28,7 +28,7 @@ export function GamePlayer() {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
 
-  const { time, start, pause, reset } = useTimer({
+  const { time, start, reset } = useTimer({
     initialTime: 15,
     timerType: "DECREMENTAL",
     endTime: 0,

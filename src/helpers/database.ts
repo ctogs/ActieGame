@@ -1,8 +1,7 @@
 import { generateRound } from "./tmdb";
-import { GameRoom, Player, Round } from "./types";
-// import { getRoundData } from "./getRound";
+import { Player } from "./types";
 import * as xxhash from 'xxhash-wasm';
-import { CollectionReference, DocumentData, doc, getDoc, getDocFromServer, setDoc, updateDoc } from "firebase/firestore";
+import { CollectionReference, DocumentData, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { User } from "@firebase/auth";
 
 /**

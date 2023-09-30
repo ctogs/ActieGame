@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom"
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import { auth, db } from "../firebase";
-import { addUser, addUserToRoom } from "../helpers/database";
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { addUserToRoom } from "../helpers/database";
+import { collection } from "firebase/firestore";
 
 export function Join() {
   const navigate = useNavigate()
