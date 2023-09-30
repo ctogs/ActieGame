@@ -33,6 +33,7 @@ export function HostWaitRoom() {
   return (
     <> 
       <h1>Waiting Room</h1>
+      <h2>Room code: {roomID}</h2>
       {Object.entries(players).map(([key, value]) => 
          (
           <div key={key} className="actie-header">

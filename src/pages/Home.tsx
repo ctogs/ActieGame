@@ -31,6 +31,13 @@ export function Home() {
     navigate('/join')
   }
 
+  const howToPlay = async () => {
+    const isHost = false
+    if (user) await addUser(usersRef, user, isHost)
+    else throw new Error("No user")
+    navigate('/howto')
+  }
+
   return (
     <>
       <div>
@@ -41,7 +48,8 @@ export function Home() {
         <h2>A Movie Guessing Game</h2>
       </div>
       {user ? 
-        <div>    
+        <div>   
+          <button onClick={howToPlay}>how to play</button> <br />
           <button onClick={createGame}>create game</button>
           <button onClick={joinGame}>join a game</button>
         </div>

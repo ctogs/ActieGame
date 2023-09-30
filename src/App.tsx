@@ -8,6 +8,7 @@ import { LeaderBoard } from './pages/LeaderBoard'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import './App.css'
+import { HowTo } from './pages/HowTo'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/waiting-room/:roomID" element={<WaitingRoom />} />
           <Route path="/host-waitroom/:roomID" element={<HostWaitRoom />} />
           <Route path="/leaderboard/:roomID" element={<LeaderBoard />} />
+          <Route path="/howto" element={<HowTo />} />
         </Routes>
       </Router>
     </>
