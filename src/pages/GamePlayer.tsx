@@ -89,13 +89,20 @@ export function GamePlayer() {
       <h3>{user?.displayName}</h3>
       <h2>Round: {numRounds.current}</h2>
       <div>
-        <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
-          <div className="modal">
-            <h2>{roundWinner} guessed correctly!</h2>
-            <h2>They guessed: {correctRoundGeuss}</h2>
-            <LeaderBoard />
-          </div>
-        </Popup>
+      <Popup open={open} closeOnDocumentClick={false} onClose={closeModal} closeOnEscape={false} lockScroll>
+        <div className="modal">
+          {roundWinner === "" ? 
+            <div>
+              <h2>Get ready to start...</h2>
+            </div> :
+            <div>
+              <h2>{roundWinner} guessed correctly!</h2>
+              <h2>A correct answer: {correctRoundGeuss}</h2>
+            </div>
+          }
+            <LeaderBoard />              
+        </div>
+      </Popup>
       </div> <br />
 
       <div className="actor-container">
